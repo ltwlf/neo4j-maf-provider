@@ -1,6 +1,6 @@
 [project]
 name = "agent-framework-neo4j"
-version = "0.4.0"
+version = "0.5.4"
 description = "Neo4j Context Provider for Microsoft Agent Framework - RAG with knowledge graphs"
 readme = "README.md"
 requires-python = ">=3.10"
