@@ -10,7 +10,8 @@ permissions:
   id-token: write
 
 jobs:
-  build:
+  # ── Python ──────────────────────────────────────────────────────────────────
+  build-python:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -32,7 +33,7 @@ jobs:
           path: python/dist/
 
   publish-pypi:
-    needs: build
+    needs: build-python
     runs-on: ubuntu-latest
     environment:
       name: pypi
@@ -47,16 +48,77 @@ jobs:
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
 
-  github-release:
-    needs: publish-pypi
+  # ── .NET ────────────────────────────────────────────────────────────────────
+  build-dotnet:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Download distributions
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: Extract version from tag
+        id: version
+        run: echo "VERSION=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
+
+      - name: Build
+        working-directory: dotnet
+        run: dotnet build --configuration Release -p:Version=${{ steps.version.outputs.VERSION }}
+
+      - name: Test
+        working-directory: dotnet
+        run: dotnet test --configuration Release --no-build
+
+      - name: Pack
+        working-directory: dotnet
+        run: dotnet pack src/Neo4j.AgentFramework --configuration Release --no-build -p:Version=${{ steps.version.outputs.VERSION }} -o nupkg/
+
+      - name: Store NuGet package
+        uses: actions/upload-artifact@v4
+        with:
+          name: nuget-package
+          path: dotnet/nupkg/
+
+  publish-nuget:
+    needs: build-dotnet
+    runs-on: ubuntu-latest
+    environment:
+      name: nuget
+      url: https://www.nuget.org/packages/Neo4j.AgentFramework
+    steps:
+      - name: Download NuGet package
+        uses: actions/download-artifact@v4
+        with:
+          name: nuget-package
+          path: nupkg/
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: Publish to NuGet
+        run: dotnet nuget push nupkg/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
+
+  # ── GitHub Release ──────────────────────────────────────────────────────────
+  github-release:
+    needs: [publish-pypi, publish-nuget]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download Python distributions
         uses: actions/download-artifact@v4
         with:
           name: python-package-distributions
+          path: dist/
+
+      - name: Download NuGet package
+        uses: actions/download-artifact@v4
+        with:
+          name: nuget-package
           path: dist/
 
       - name: Create GitHub Release

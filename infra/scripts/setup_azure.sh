@@ -1,10 +1,15 @@
 #!/bin/bash
-# Configure Azure region for Neo4j samples
-# Run this after: az login --use-device-code && azd auth login --use-device-code
+# Configure Azure region for Neo4j MAF Provider
+# Run from the repo root after: az login && azd auth login
 
 set -e
 
-ENV_FILE=".env"
+# Resolve repo root (two levels up from infra/scripts/)
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
+cd "$REPO_ROOT"
+
+ENV_FILE="$REPO_ROOT/.env"
 
 # Function to clean stale Azure config from .env
 clean_env_file() {
@@ -74,4 +79,4 @@ echo "Azure configured: $REGION"
 echo ""
 echo "Ready to deploy! Run:"
 echo "   azd up"
-echo "   uv run setup_env.py"
+echo "   python infra/scripts/setup_env.py"
