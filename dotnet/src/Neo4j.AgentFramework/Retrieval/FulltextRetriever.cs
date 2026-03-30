@@ -109,9 +109,9 @@ internal sealed class FulltextRetriever : IRetriever
         }
         else
         {
-            // Fallback: first string value
-            content = data.Values.FirstOrDefault(v => v is string)?.ToString()
-                       ?? record.Values.ToString()!;
+            // Fallback: prefer first string value, then any non-null value
+            content = (data.Values.FirstOrDefault(v => v is string) ??
+                       data.Values.FirstOrDefault(v => v is not null))?.ToString() ?? "";
         }
 
         return new RetrieverResultItem(content, data.Count > 0 ? data! : null);

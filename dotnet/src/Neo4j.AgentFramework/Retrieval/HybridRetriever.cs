@@ -5,7 +5,8 @@ namespace Neo4j.AgentFramework.Retrieval;
 
 /// <summary>
 /// Retriever combining vector and fulltext search.
-/// Runs both queries concurrently and merges results by taking the max score per node.
+/// Runs both queries concurrently and merges results by content, taking the max score
+/// for duplicate text chunks.
 /// </summary>
 internal sealed class HybridRetriever : IRetriever
 {

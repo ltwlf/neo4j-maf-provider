@@ -15,15 +15,11 @@ import sys
 import time
 from pathlib import Path
 
+from dotenv import load_dotenv
+
 # Load .env from repo root
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
-env_file = REPO_ROOT / ".env"
-if env_file.exists():
-    for line in env_file.read_text().splitlines():
-        line = line.strip()
-        if line and not line.startswith("#") and "=" in line:
-            k, _, v = line.partition("=")
-            os.environ.setdefault(k.strip(), v.strip())
+load_dotenv(REPO_ROOT / ".env")
 
 from azure.identity import DefaultAzureCredential
 from neo4j import GraphDatabase
@@ -181,7 +177,17 @@ def main():
     driver.verify_connectivity()
 
     with driver.session() as session:
-        # Clear existing data
+        # Clear existing data (with confirmation)
+        result = session.run("MATCH (n) RETURN count(n) AS cnt")
+        node_count = result.single()["cnt"]
+        if node_count > 0:
+            print(f"WARNING: This will delete all {node_count} nodes in {neo4j_uri}")
+            if "--yes" not in sys.argv:
+                answer = input("Continue? [y/N] ")
+                if answer.lower() != "y":
+                    print("Aborted.")
+                    driver.close()
+                    sys.exit(0)
         print("Clearing existing data...")
         session.run("MATCH (n) DETACH DELETE n")
 
