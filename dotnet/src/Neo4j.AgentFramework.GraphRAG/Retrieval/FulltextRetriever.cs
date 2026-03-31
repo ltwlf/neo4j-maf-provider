@@ -1,6 +1,6 @@
 using Neo4j.Driver;
 
-namespace Neo4j.AgentFramework.Retrieval;
+namespace Neo4j.AgentFramework.GraphRAG.Retrieval;
 
 /// <summary>
 /// Retriever using fulltext search over Neo4j fulltext indexes.

@@ -1,6 +1,6 @@
-using Neo4j.AgentFramework.Retrieval;
+using Neo4j.AgentFramework.GraphRAG.Retrieval;
 
-namespace Neo4j.AgentFramework.Tests;
+namespace Neo4j.AgentFramework.GraphRAG.Tests;
 
 public class ResultFormattingTests
 {

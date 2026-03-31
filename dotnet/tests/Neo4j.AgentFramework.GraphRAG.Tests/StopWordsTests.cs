@@ -1,4 +1,4 @@
-namespace Neo4j.AgentFramework.Tests;
+namespace Neo4j.AgentFramework.GraphRAG.Tests;
 
 public class StopWordsTests
 {

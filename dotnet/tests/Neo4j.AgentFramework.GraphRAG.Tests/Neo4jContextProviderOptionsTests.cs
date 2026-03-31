@@ -1,7 +1,7 @@
 using Microsoft.Extensions.AI;
 using Moq;
 
-namespace Neo4j.AgentFramework.Tests;
+namespace Neo4j.AgentFramework.GraphRAG.Tests;
 
 public class Neo4jContextProviderOptionsTests
 {

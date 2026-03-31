@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="../../src/Neo4j.AgentFramework/Neo4j.AgentFramework.csproj" />
+    <ProjectReference Include="../../src/Neo4j.AgentFramework.GraphRAG/Neo4j.AgentFramework.GraphRAG.csproj" />
   </ItemGroup>
 
   <ItemGroup>

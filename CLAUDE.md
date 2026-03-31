@@ -24,9 +24,9 @@ neo4j-maf-provider/
 │   ├── tests/                             # Library tests
 │   └── docs/                              # Python documentation
 ├── dotnet/                            # .NET implementation
-│   ├── src/Neo4j.AgentFramework/         # NuGet library
+│   ├── src/Neo4j.AgentFramework.GraphRAG/         # NuGet library
 │   ├── samples/Neo4j.Samples/            # Demo console app
-│   └── tests/Neo4j.AgentFramework.Tests/ # Unit tests
+│   └── tests/Neo4j.AgentFramework.GraphRAG.Tests/ # Unit tests
 ├── infra/                             # Shared infrastructure
 │   ├── SETUP.md                          # Setup guide
 │   ├── main.bicep                        # Azure Bicep template
@@ -72,7 +72,7 @@ cd dotnet
 dotnet build                                    # Build all projects
 dotnet test                                     # Run unit tests
 dotnet run --project samples/Neo4j.Samples      # Run demos
-dotnet pack src/Neo4j.AgentFramework            # Create NuGet package
+dotnet pack src/Neo4j.AgentFramework.GraphRAG            # Create NuGet package
 ```
 
 ### Infrastructure Setup (from repo root)
@@ -99,12 +99,12 @@ python infra/scripts/seed_data.py   # Load demo data into Neo4j
 
 | Component | Location | Purpose |
 |-----------|----------|---------|
-| `Neo4jContextProvider` | `dotnet/src/Neo4j.AgentFramework/Neo4jContextProvider.cs` | `AIContextProvider` implementation |
-| `Neo4jContextProviderOptions` | `dotnet/src/Neo4j.AgentFramework/Neo4jContextProviderOptions.cs` | Configuration with validation |
-| `Neo4jSettings` | `dotnet/src/Neo4j.AgentFramework/Neo4jSettings.cs` | Environment variable loader |
-| `VectorRetriever` | `dotnet/src/Neo4j.AgentFramework/Retrieval/VectorRetriever.cs` | Vector search via Cypher |
-| `FulltextRetriever` | `dotnet/src/Neo4j.AgentFramework/Retrieval/FulltextRetriever.cs` | Fulltext search via Cypher |
-| `HybridRetriever` | `dotnet/src/Neo4j.AgentFramework/Retrieval/HybridRetriever.cs` | Combined vector + fulltext |
+| `Neo4jContextProvider` | `dotnet/src/Neo4j.AgentFramework.GraphRAG/Neo4jContextProvider.cs` | `AIContextProvider` implementation |
+| `Neo4jContextProviderOptions` | `dotnet/src/Neo4j.AgentFramework.GraphRAG/Neo4jContextProviderOptions.cs` | Configuration with validation |
+| `Neo4jSettings` | `dotnet/src/Neo4j.AgentFramework.GraphRAG/Neo4jSettings.cs` | Environment variable loader |
+| `VectorRetriever` | `dotnet/src/Neo4j.AgentFramework.GraphRAG/Retrieval/VectorRetriever.cs` | Vector search via Cypher |
+| `FulltextRetriever` | `dotnet/src/Neo4j.AgentFramework.GraphRAG/Retrieval/FulltextRetriever.cs` | Fulltext search via Cypher |
+| `HybridRetriever` | `dotnet/src/Neo4j.AgentFramework.GraphRAG/Retrieval/HybridRetriever.cs` | Combined vector + fulltext |
 
 ### Search Flow
 

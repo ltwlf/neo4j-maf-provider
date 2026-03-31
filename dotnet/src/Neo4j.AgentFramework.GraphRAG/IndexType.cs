@@ -1,4 +1,4 @@
-namespace Neo4j.AgentFramework;
+namespace Neo4j.AgentFramework.GraphRAG;
 
 /// <summary>
 /// The type of search to perform against Neo4j indexes.

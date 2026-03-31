@@ -73,7 +73,7 @@ jobs:
 
       - name: Pack
         working-directory: dotnet
-        run: dotnet pack src/Neo4j.AgentFramework --configuration Release --no-build -p:Version=${{ steps.version.outputs.VERSION }} -o nupkg/
+        run: dotnet pack src/Neo4j.AgentFramework.GraphRAG --configuration Release --no-build -p:Version=${{ steps.version.outputs.VERSION }} -o nupkg/
 
       - name: Store NuGet package
         uses: actions/upload-artifact@v4
@@ -86,7 +86,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: nuget
-      url: https://www.nuget.org/packages/Neo4j.AgentFramework
+      url: https://www.nuget.org/packages/Neo4j.AgentFramework.GraphRAG
     steps:
       - name: Download NuGet package
         uses: actions/download-artifact@v4
