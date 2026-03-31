@@ -1,7 +1,7 @@
 using Microsoft.Extensions.AI;
 using Neo4j.Driver;
 
-namespace Neo4j.AgentFramework.Retrieval;
+namespace Neo4j.AgentFramework.GraphRAG.Retrieval;
 
 /// <summary>
 /// Retriever combining vector and fulltext search.

@@ -1,4 +1,4 @@
-namespace Neo4j.AgentFramework.Retrieval;
+namespace Neo4j.AgentFramework.GraphRAG.Retrieval;
 
 /// <summary>
 /// A single item from a retriever search result.

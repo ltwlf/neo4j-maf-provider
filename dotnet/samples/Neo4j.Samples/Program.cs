@@ -3,7 +3,7 @@ using Azure.Identity;
 using Microsoft.Agents.AI;
 using Microsoft.Agents.AI.OpenAI;
 using Microsoft.Extensions.AI;
-using Neo4j.AgentFramework;
+using Neo4j.AgentFramework.GraphRAG;
 using Neo4j.Driver;
 
 // ── Load .env from repo root ─────────────────────────────────────────────────

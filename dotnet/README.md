@@ -14,7 +14,7 @@ A .NET library that provides Neo4j knowledge graph context to AI agents built wi
 ## Installation
 
 ```bash
-dotnet add package Neo4j.AgentFramework
+dotnet add package Neo4j.AgentFramework.GraphRAG
 ```
 
 ## Quick Start
@@ -24,7 +24,7 @@ using Azure.AI.OpenAI;
 using Azure.Identity;
 using Microsoft.Agents.AI;
 using Microsoft.Extensions.AI;
-using Neo4j.AgentFramework;
+using Neo4j.AgentFramework.GraphRAG;
 using Neo4j.Driver;
 
 // Create embedding generator (any IEmbeddingGenerator implementation works)
@@ -174,7 +174,7 @@ dotnet run --project samples/Neo4j.Samples
 
 ```
 dotnet/
-├── src/Neo4j.AgentFramework/         # Library
+├── src/Neo4j.AgentFramework.GraphRAG/         # Library
 │   ├── Neo4jContextProvider.cs        # AIContextProvider implementation
 │   ├── Neo4jContextProviderOptions.cs # Configuration
 │   ├── Neo4jSettings.cs               # Environment variable loader
@@ -187,7 +187,7 @@ dotnet/
 │       ├── FulltextRetriever.cs
 │       └── HybridRetriever.cs
 ├── samples/Neo4j.Samples/            # Demo console app
-├── tests/Neo4j.AgentFramework.Tests/  # Unit tests
+├── tests/Neo4j.AgentFramework.GraphRAG.Tests/  # Unit tests
 └── neo4j-provider.sln
 ```
 
@@ -206,5 +206,5 @@ The library uses `IEmbeddingGenerator<string, Embedding<float>>` from `Microsoft
 cd dotnet
 dotnet build                    # Build all projects
 dotnet test                     # Run unit tests
-dotnet pack src/Neo4j.AgentFramework  # Create NuGet package
+dotnet pack src/Neo4j.AgentFramework.GraphRAG  # Create NuGet package
 ```
