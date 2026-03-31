@@ -42,7 +42,7 @@ AI model responds with knowledge from your data
 
 ## Getting Started
 
-Both implementations share the same Azure OpenAI resources and Neo4j database. See [infra/SETUP.md](infra/SETUP.md) for setup instructions covering:
+Both implementations share the same Azure OpenAI resources and Neo4j database. See [examples/SETUP.md](examples/SETUP.md) for sample setup instructions covering:
 - Azure OpenAI provisioning (gpt-4o + text-embedding-3-small)
 - Neo4j database setup and demo data loading
 - Environment configuration (`.env`)
@@ -51,7 +51,7 @@ Both implementations share the same Azure OpenAI resources and Neo4j database. S
 
 ```
 neo4j-maf-provider/
-├── infra/                     # Shared infrastructure (Azure + Neo4j setup)
+├── examples/                  # Sample setup and provisioning
 │   ├── SETUP.md               # Setup guide
 │   ├── main.bicep             # Azure Bicep template
 │   └── scripts/               # Setup and seed scripts

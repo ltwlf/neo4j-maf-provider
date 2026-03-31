@@ -89,6 +89,8 @@ resource aiProject 'Microsoft.CognitiveServices/accounts/projects@2025-04-01-pre
 resource chatDeployment 'Microsoft.CognitiveServices/accounts/deployments@2024-10-01' = {
   parent: aiServices
   name: chatModelName
+  // The preview Foundry RP rejects concurrent child updates on the same account.
+  dependsOn: [aiProject]
   properties: {
     model: {
       format: 'OpenAI'
@@ -124,6 +126,12 @@ resource embeddingDeployment 'Microsoft.CognitiveServices/accounts/deployments@2
 resource storageConnection 'Microsoft.CognitiveServices/accounts/connections@2025-04-01-preview' = {
   name: 'storage-connection'
   parent: aiServices
+  dependsOn: [
+    aiProject
+    chatDeployment
+    embeddingDeployment
+    aiStorageRole
+  ]
   properties: {
     category: 'AzureStorageAccount'
     target: storageAccount.properties.primaryEndpoints.blob

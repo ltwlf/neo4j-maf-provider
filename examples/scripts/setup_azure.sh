@@ -4,7 +4,7 @@
 
 set -e
 
-# Resolve repo root (two levels up from infra/scripts/)
+# Resolve repo root (two levels up from examples/scripts/)
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 cd "$REPO_ROOT"
@@ -78,5 +78,7 @@ echo ""
 echo "Azure configured: $REGION"
 echo ""
 echo "Ready to deploy! Run:"
+echo "   az login"
+echo "   azd auth login"
 echo "   azd up"
-echo "   python infra/scripts/setup_env.py"
+echo "   python examples/scripts/setup_env.py"

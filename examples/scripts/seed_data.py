@@ -7,7 +7,7 @@ Creates the same schema used by the Python samples:
 
 Also generates embeddings via Azure OpenAI and creates indexes.
 
-Usage: python infra/scripts/seed_data.py
+Usage: python examples/scripts/seed_data.py
 """
 
 import os

@@ -31,27 +31,47 @@ uv sync --prerelease=allow
 
 # 2. Deploy Azure infrastructure (from repo root)
 cd ..
+az login
+azd auth login
 azd up
 
-# 3. Sync Azure environment variables
-python infra/scripts/setup_env.py
+# 3. Create .env and add Neo4j credentials
+cp .env.sample .env
 
-# 4. Add Neo4j credentials to .env (see infra/SETUP.md)
+NEO4J_URI=neo4j+s://xxx.databases.neo4j.io
+NEO4J_USERNAME=neo4j
+NEO4J_PASSWORD=your-password
 
-# 5. Run samples
+# 4. Sync Azure environment variables
+python examples/scripts/setup_env.py
+
+# 5. Sign in for Azure SDK access used by the samples
+az login
+
+# 6. Run samples
 cd python
 uv run start-samples
 ```
 
 ## 1. Deploy Azure Infrastructure
 
-See [infra/SETUP.md](../../infra/SETUP.md) for full setup instructions covering Azure OpenAI, Neo4j, and demo data loading.
+See [examples/SETUP.md](../../examples/SETUP.md) for full setup instructions covering Azure OpenAI, Neo4j, and demo data loading.
 
-From the **repo root**, deploy the shared infrastructure:
+From the **repo root**, deploy the sample provisioning resources:
 
 ```bash
+az login
+azd auth login
 azd up
 ```
+
+Azure AI Foundry currently requires one of these regions:
+- `eastus2` (East US 2)
+- `swedencentral` (Sweden Central)
+- `westus2` (West US 2)
+- `westus3` (West US 3)
+
+If you choose another region, check Azure AI Foundry availability there before provisioning.
 
 This provisions:
 - Azure AI Services account
@@ -59,10 +79,20 @@ This provisions:
 - Model deployments (GPT-4o, text-embedding-3-small)
 - Required IAM role assignments
 
-After provisioning, sync the Azure endpoints to your `.env` file:
+After provisioning, create `.env` if needed, add your Neo4j credentials, and then sync the Azure endpoints:
 
 ```bash
-python infra/scripts/setup_env.py
+cp .env.sample .env
+```
+
+```env
+NEO4J_URI=neo4j+s://xxx.databases.neo4j.io
+NEO4J_USERNAME=neo4j
+NEO4J_PASSWORD=your-password
+```
+
+```bash
+python examples/scripts/setup_env.py
 ```
 
 This populates your `.env` with:
@@ -78,7 +108,7 @@ Add your Neo4j database credentials to `.env`:
 
 ### Financial Documents Database (samples 1-4)
 
-See [infra/SETUP.md](../../infra/SETUP.md) for instructions on setting up Azure OpenAI, Neo4j, and loading demo data.
+See [examples/SETUP.md](../../examples/SETUP.md) for instructions on setting up Azure OpenAI, Neo4j, and loading demo data.
 
 ### Aircraft Database (samples 5-7)
 
@@ -89,12 +119,14 @@ For aircraft database access, please contact the author.
 ### Interactive Menu
 
 ```bash
+az login
 uv run start-samples
 ```
 
 ### Run Specific Sample
 
 ```bash
+az login
 uv run start-samples 1   # Semantic Search
 uv run start-samples 2   # Context Provider (Fulltext)
 uv run start-samples 3   # Context Provider (Vector)
@@ -265,13 +297,13 @@ samples/
 │   └── shared/             # Shared utilities (agent config, CLI, logging)
 ```
 
-Azure infrastructure (Bicep templates, setup scripts) is shared with the .NET samples and lives at the repo root under `infra/`. See [infra/SETUP.md](../../infra/SETUP.md).
+Sample provisioning files (Bicep templates, setup scripts) are shared with the .NET samples and live at the repo root under `examples/`. See [examples/SETUP.md](../../examples/SETUP.md).
 
 ## Troubleshooting
 
 ### "Model deployment not found"
 
-Run `azd up` from the **repo root** to deploy infrastructure, then run `python infra/scripts/setup_env.py` to sync model names to your `.env` file.
+Run `azd up` from the **repo root** to deploy the sample resources, then run `python examples/scripts/setup_env.py` to sync model names to your `.env` file.
 
 ### "Neo4j not configured"
 
@@ -281,11 +313,11 @@ Add the required Neo4j environment variables to `.env`. The samples check for:
 
 ### "Azure not configured"
 
-Run `azd up` from the **repo root** followed by `python infra/scripts/setup_env.py` to populate Azure variables.
+Run `azd up` from the **repo root** followed by `python examples/scripts/setup_env.py` to populate Azure variables.
 
 ### "Index not found"
 
-Create the required indexes in your Neo4j database. See [infra/SETUP.md](../../infra/SETUP.md) for details.
+Create the required indexes in your Neo4j database. See [examples/SETUP.md](../../examples/SETUP.md) for details.
 
 ## Cost Estimate
 

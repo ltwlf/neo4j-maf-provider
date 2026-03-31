@@ -7,7 +7,7 @@ metadata:
 # Minimal serverless infrastructure - just AI Services + Project
 infra:
   provider: bicep
-  path: infra
+  path: examples
   module: main
 
 hooks:
@@ -42,9 +42,10 @@ hooks:
       echo "=========================================="
       echo ""
       echo "Next steps:"
-      echo "  1. Run: python infra/scripts/setup_env.py"
+      echo "  1. Create .env from .env.sample if needed"
       echo "  2. Add Neo4j credentials to .env"
-      echo "  3. Run samples:"
+      echo "  3. Run: python examples/scripts/setup_env.py"
+      echo "  4. Run samples:"
       echo "     Python: cd python && uv run start-samples"
       echo "     .NET:   cd dotnet && dotnet run --project samples/Neo4j.Samples"
       echo ""

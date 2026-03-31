@@ -11,11 +11,21 @@ This guide covers setting up Azure AI Foundry and Neo4j for the sample applicati
 
 ## 1. Deploy Azure AI Foundry
 
-From the **repo root**, deploy the shared infrastructure:
+From the **repo root**, deploy the sample provisioning resources:
 
 ```bash
+az login
+azd auth login
 azd up
 ```
+
+Azure AI Foundry currently requires one of these regions:
+- `eastus2` (East US 2)
+- `swedencentral` (Sweden Central)
+- `westus2` (West US 2)
+- `westus3` (West US 3)
+
+If you choose a different region, check Azure AI Foundry availability there before provisioning.
 
 This provisions:
 - Azure AI Services account with project management (Foundry)
@@ -23,10 +33,24 @@ This provisions:
 - Model deployments (GPT-4o, text-embedding-3-small)
 - Storage account and required IAM role assignments
 
-After provisioning, sync the Azure endpoints to your `.env` file:
+If you do not have a `.env` file yet, create one first:
 
 ```bash
-python infra/scripts/setup_env.py
+cp .env.sample .env
+```
+
+Before syncing Azure values, make sure your `.env` contains your Neo4j connection values:
+
+```env
+NEO4J_URI=neo4j+s://xxx.databases.neo4j.io
+NEO4J_USERNAME=neo4j
+NEO4J_PASSWORD=your-password
+```
+
+Then sync the Azure endpoints to your `.env` file:
+
+```bash
+python examples/scripts/setup_env.py
 ```
 
 This populates your `.env` with:
@@ -82,13 +106,7 @@ AZURE_AI_EMBEDDING_NAME=text-embedding-3-small
 
 ## 2. Configure .env
 
-Copy the sample and fill in your values:
-
-```bash
-cp .env.sample .env
-```
-
-Edit `.env` with your Neo4j credentials:
+If you have not already done so, edit `.env` with your Neo4j credentials:
 ```
 # Neo4j Connection
 NEO4J_URI=neo4j+s://xxx.databases.neo4j.io
@@ -102,11 +120,12 @@ There are two options for loading sample data:
 
 ### Option A: Seed Script (quick start)
 
-Generates a small dataset with embeddings. Requires `azure-identity`, `openai`, and `neo4j` Python packages:
+Generates a small dataset with embeddings. Requires `azure-identity`, `openai`, `neo4j`, and `python-dotenv`:
 
 ```bash
-pip install azure-identity openai neo4j
-python infra/scripts/seed_data.py
+pip install azure-identity openai neo4j python-dotenv
+az login
+python examples/scripts/seed_data.py
 ```
 
 This creates:
@@ -138,6 +157,7 @@ uv run start-samples
 
 ### .NET
 ```bash
+az login
 cd dotnet
 dotnet run --project samples/Neo4j.Samples
 ```

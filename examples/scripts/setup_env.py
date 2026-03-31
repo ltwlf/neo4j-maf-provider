@@ -50,7 +50,7 @@ PLACEHOLDER_SECTIONS = {
     },
 }
 
-# Resolve repo root (two levels up from infra/scripts/)
+# Resolve repo root (two levels up from examples/scripts/)
 _SCRIPT_DIR = Path(__file__).resolve().parent
 _REPO_ROOT = _SCRIPT_DIR.parent.parent
 

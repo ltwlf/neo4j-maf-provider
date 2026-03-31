@@ -27,7 +27,7 @@ neo4j-maf-provider/
 │   ├── src/Neo4j.AgentFramework.GraphRAG/         # NuGet library
 │   ├── samples/Neo4j.Samples/            # Demo console app
 │   └── tests/Neo4j.AgentFramework.GraphRAG.Tests/ # Unit tests
-├── infra/                             # Shared infrastructure
+├── examples/                          # Sample setup and provisioning
 │   ├── SETUP.md                          # Setup guide
 │   ├── main.bicep                        # Azure Bicep template
 │   └── scripts/                          # Setup and seed scripts
@@ -75,12 +75,12 @@ dotnet run --project samples/Neo4j.Samples      # Run demos
 dotnet pack src/Neo4j.AgentFramework.GraphRAG            # Create NuGet package
 ```
 
-### Infrastructure Setup (from repo root)
+### Sample Setup (from repo root)
 
 ```bash
-azd up                              # Provision Azure AI Foundry
-python infra/scripts/setup_env.py   # Sync env vars from azd to .env
-python infra/scripts/seed_data.py   # Load demo data into Neo4j
+azd up                                 # Provision Azure AI Foundry
+python examples/scripts/setup_env.py   # Sync env vars from azd to .env
+python examples/scripts/seed_data.py   # Load demo data into Neo4j
 ```
 
 ## Architecture
@@ -135,7 +135,7 @@ NEO4J_VECTOR_INDEX_NAME       # default: chunkEmbeddings
 NEO4J_FULLTEXT_INDEX_NAME     # default: search_chunks
 ```
 
-### Azure AI Foundry (populated by `python infra/scripts/setup_env.py`)
+### Azure AI Foundry (populated by `python examples/scripts/setup_env.py`)
 ```
 AZURE_AI_PROJECT_ENDPOINT     # Foundry project endpoint (Python)
 AZURE_AI_SERVICES_ENDPOINT    # AI Services endpoint (used by .NET and seed_data.py)

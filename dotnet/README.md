@@ -160,9 +160,9 @@ if (settings.IsConfigured)
 
 ## Running the Sample
 
-1. Set up Azure AI Foundry and Neo4j — see [infra/SETUP.md](../infra/SETUP.md) for full instructions
+1. Set up Azure AI Foundry and Neo4j — see [examples/SETUP.md](../examples/SETUP.md) for full instructions
 2. Copy `.env.sample` to `.env` at the repo root and fill in your credentials
-3. Load demo data: `python infra/scripts/seed_data.py` (or restore the full backup)
+3. Load demo data: `python examples/scripts/seed_data.py` (or restore the full backup)
 4. Run the sample:
 
 ```bash
