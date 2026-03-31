@@ -57,6 +57,8 @@ public sealed class Neo4jContextProvider : AIContextProvider, IAsyncDisposable
     private Neo4jContextProvider(IDriver driver, Neo4jContextProviderOptions options, bool ownsDriver)
         : base(null, null)
     {
+        ArgumentNullException.ThrowIfNull(driver);
+        ArgumentNullException.ThrowIfNull(options);
         options.Validate();
         _driver = driver;
         _ownsDriver = ownsDriver;
