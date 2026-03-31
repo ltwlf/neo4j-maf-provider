@@ -2,10 +2,10 @@ using System.Collections;
 using System.Globalization;
 using Microsoft.Agents.AI;
 using Microsoft.Extensions.AI;
-using Neo4j.AgentFramework.Retrieval;
+using Neo4j.AgentFramework.GraphRAG.Retrieval;
 using Neo4j.Driver;
 
-namespace Neo4j.AgentFramework;
+namespace Neo4j.AgentFramework.GraphRAG;
 
 /// <summary>
 /// Context provider that retrieves knowledge graph context from Neo4j.

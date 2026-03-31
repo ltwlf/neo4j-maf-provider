@@ -1,9 +1,9 @@
 using Microsoft.Extensions.AI;
 using Moq;
-using Neo4j.AgentFramework.Retrieval;
+using Neo4j.AgentFramework.GraphRAG.Retrieval;
 using Neo4j.Driver;
 
-namespace Neo4j.AgentFramework.Tests;
+namespace Neo4j.AgentFramework.GraphRAG.Tests;
 
 public class Neo4jContextProviderTests
 {

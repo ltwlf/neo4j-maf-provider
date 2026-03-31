@@ -1,4 +1,4 @@
-namespace Neo4j.AgentFramework;
+namespace Neo4j.AgentFramework.GraphRAG;
 
 /// <summary>
 /// Loads Neo4j connection settings from environment variables.

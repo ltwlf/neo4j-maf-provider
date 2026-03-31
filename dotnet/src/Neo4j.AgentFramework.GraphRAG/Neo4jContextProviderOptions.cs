@@ -1,6 +1,6 @@
 using Microsoft.Extensions.AI;
 
-namespace Neo4j.AgentFramework;
+namespace Neo4j.AgentFramework.GraphRAG;
 
 /// <summary>
 /// Configuration options for <see cref="Neo4jContextProvider"/>.

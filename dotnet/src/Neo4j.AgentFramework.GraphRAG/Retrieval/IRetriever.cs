@@ -1,4 +1,4 @@
-namespace Neo4j.AgentFramework.Retrieval;
+namespace Neo4j.AgentFramework.GraphRAG.Retrieval;
 
 /// <summary>
 /// Interface for retrieving search results from Neo4j.
